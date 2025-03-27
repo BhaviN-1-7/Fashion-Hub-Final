@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Lobster&family=Open+Sans&family=Montserrat&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -209,7 +210,10 @@
                     
                     <div class="form-group">
                         <label for="custom-text">Add Text:</label>
-                        <input type="text" id="custom-text" placeholder="Enter your text" class="form-control">
+                        <div class="d-flex gap-2">
+                            <input type="text" id="custom-text" placeholder="Enter your text" class="form-control">
+                            <button id="remove-text" class="btn btn-outline-danger">Remove Text</button>
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -220,6 +224,16 @@
                     <div class="form-group">
                         <label for="font-size">Font Size: <span id="font-size-value">20</span>px</label>
                         <input type="range" id="font-size" min="10" max="50" value="20" class="form-range">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="font-select">Font Family:</label>
+                        <select id="font-select" class="form-control">
+                            <option value="Arial">Arial</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Verdana">Verdana</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">
@@ -234,7 +248,33 @@
                     
                     <div class="form-group">
                         <label for="main-upload-image">Upload Design:</label>
-                        <input type="file" id="main-upload-image" accept="image/*" class="form-control">
+                        <div class="d-flex gap-2">
+                            <input type="file" id="main-upload-image" accept="image/*" class="form-control">
+                            <button id="remove-main-image" class="btn btn-outline-danger">Remove Image</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="image-controls" style="display: none;">
+                        <label>Image Position:</label>
+                        <div class="position-controls">
+                            <button class="position-btn" id="move-image-up"><i class="fas fa-arrow-up"></i></button>
+                            <button class="position-btn" id="move-image-left"><i class="fas fa-arrow-left"></i></button>
+                            <button class="position-btn" id="move-image-right"><i class="fas fa-arrow-right"></i></button>
+                            <button class="position-btn" id="move-image-down"><i class="fas fa-arrow-down"></i></button>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="move-speed">Movement Speed: <span id="move-speed-value">5</span>px</label>
+                            <input type="range" id="move-speed" min="1" max="20" value="5" class="form-range">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="image-rotation">Rotation: <span id="rotation-value">0</span>°</label>
+                            <input type="range" id="image-rotation" min="-180" max="180" value="0" class="form-range">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="image-size">Image Size: <span id="image-size-value">200</span>px</label>
+                            <input type="range" id="image-size" min="50" max="400" value="200" class="form-range">
+                        </div>
+                        <button id="reset-image-position" class="btn btn-outline-secondary btn-sm mt-2">Reset Position</button>
                     </div>
                     
                     <div class="d-flex justify-content-between mt-3">
@@ -253,10 +293,39 @@
             <div class="row">
                 <div class="col-md-8">
                     <label for="global-upload-image" class="form-label">Upload Design for All T-Shirts:</label>
-                    <input type="file" id="global-upload-image" accept="image/*" class="form-control">
+                    <div class="d-flex gap-2">
+                        <input type="file" id="global-upload-image" accept="image/*" class="form-control">
+                        <button id="remove-global-image" class="btn btn-outline-danger">Remove Image</button>
+                    </div>
                 </div>
                 <div class="col-md-4 d-flex align-items-end">
                     <button id="apply-to-all" class="btn btn-primary w-100">Apply to All</button>
+                </div>
+            </div>
+            <div class="row mt-4" id="global-image-controls" style="display: none;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Global Image Position:</label>
+                        <div class="position-controls">
+                            <button class="position-btn" id="move-global-up"><i class="fas fa-arrow-up"></i></button>
+                            <button class="position-btn" id="move-global-left"><i class="fas fa-arrow-left"></i></button>
+                            <button class="position-btn" id="move-global-right"><i class="fas fa-arrow-right"></i></button>
+                            <button class="position-btn" id="move-global-down"><i class="fas fa-arrow-down"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="global-move-speed">Movement Speed: <span id="global-move-speed-value">5</span>px</label>
+                        <input type="range" id="global-move-speed" min="1" max="20" value="5" class="form-range">
+                    </div>
+                    <div class="form-group">
+                        <label for="global-rotation">Rotation: <span id="global-rotation-value">0</span>°</label>
+                        <input type="range" id="global-rotation" min="-180" max="180" value="0" class="form-range">
+                    </div>
+                    <div class="form-group">
+                        <label for="global-size">Image Size: <span id="global-size-value">150</span>px</label>
+                        <input type="range" id="global-size" min="50" max="300" value="150" class="form-range">
+                    </div>
+                    <button id="reset-global-position" class="btn btn-outline-secondary btn-sm">Reset Position</button>
                 </div>
             </div>
         </div>
@@ -346,6 +415,7 @@
             const textColor = document.getElementById('text-color');
             const fontSize = document.getElementById('font-size');
             const fontSizeValue = document.getElementById('font-size-value');
+            const fontSelect = document.getElementById('font-select');
             const tshirtOptions = document.querySelectorAll('.tshirt-option');
             const positionBtns = {
                 up: document.getElementById('move-up'),
@@ -362,6 +432,32 @@
             const cancelDraft = document.getElementById('cancel-draft');
             const confirmSave = document.getElementById('confirm-save');
             const saveMainDraftBtn = document.getElementById('save-main-draft');
+            const imageControls = document.getElementById('image-controls');
+            const imageSizeInput = document.getElementById('image-size');
+            const imageSizeValue = document.getElementById('image-size-value');
+            const moveImageUp = document.getElementById('move-image-up');
+            const moveImageDown = document.getElementById('move-image-down');
+            const moveImageLeft = document.getElementById('move-image-left');
+            const moveImageRight = document.getElementById('move-image-right');
+            const moveSpeedInput = document.getElementById('move-speed');
+            const moveSpeedValue = document.getElementById('move-speed-value');
+            const imageRotationInput = document.getElementById('image-rotation');
+            const rotationValue = document.getElementById('rotation-value');
+            const resetImagePosition = document.getElementById('reset-image-position');
+            
+            // Global image controls
+            const globalImageControls = document.getElementById('global-image-controls');
+            const moveGlobalUp = document.getElementById('move-global-up');
+            const moveGlobalDown = document.getElementById('move-global-down');
+            const moveGlobalLeft = document.getElementById('move-global-left');
+            const moveGlobalRight = document.getElementById('move-global-right');
+            const globalMoveSpeedInput = document.getElementById('global-move-speed');
+            const globalMoveSpeedValue = document.getElementById('global-move-speed-value');
+            const globalRotationInput = document.getElementById('global-rotation');
+            const globalRotationValue = document.getElementById('global-rotation-value');
+            const globalSizeInput = document.getElementById('global-size');
+            const globalSizeValue = document.getElementById('global-size-value');
+            const resetGlobalPosition = document.getElementById('reset-global-position');
             
             // State
             let currentTshirt = 'Media/tshirt_white.png';
@@ -370,6 +466,16 @@
             let globalDesignImage = null; // For the bulk section
             let selectedTshirtCard = null;
             let isSavingMainDraft = false;
+            let imagePosition = { x: canvas.width/2, y: canvas.height/2 };
+            let imageSize = 200;
+            let imageRotation = 0;
+            let moveSpeed = 5;
+            
+            // Global image state
+            let globalImagePosition = { x: 100, y: 125 }; // Center of grid t-shirts
+            let globalImageSize = 150;
+            let globalImageRotation = 0;
+            let globalMoveSpeed = 5;
             
             // Initialize
             loadTshirt(currentTshirt);
@@ -391,6 +497,7 @@
                 fontSizeValue.textContent = this.value;
                 updateCanvas();
             });
+            fontSelect.addEventListener('change', updateCanvas);
             
             // Position controls
             positionBtns.up.addEventListener('click', () => { textPosition.y -= 5; updateCanvas(); });
@@ -401,6 +508,133 @@
             // Image uploads
             mainUpload.addEventListener('change', handleMainImageUpload);
             globalUpload.addEventListener('change', handleGlobalImageUpload);
+            
+            // Image controls
+            imageSizeInput.addEventListener('input', function() {
+                imageSizeValue.textContent = this.value;
+                imageSize = parseInt(this.value);
+                updateCanvas();
+            });
+            
+            moveSpeedInput.addEventListener('input', function() {
+                moveSpeedValue.textContent = this.value;
+                moveSpeed = parseInt(this.value);
+            });
+            
+            imageRotationInput.addEventListener('input', function() {
+                rotationValue.textContent = this.value;
+                imageRotation = parseInt(this.value);
+                updateCanvas();
+            });
+            
+            resetImagePosition.addEventListener('click', function() {
+                imagePosition = { x: canvas.width/2, y: canvas.height/2 };
+                imageRotation = 0;
+                imageRotationInput.value = 0;
+                rotationValue.textContent = '0';
+                updateCanvas();
+            });
+            
+            // Keyboard controls for image movement
+            document.addEventListener('keydown', function(event) {
+                if (!mainDesignImage) return;
+                
+                switch(event.key) {
+                    case 'ArrowUp':
+                        imagePosition.y -= moveSpeed;
+                        break;
+                    case 'ArrowDown':
+                        imagePosition.y += moveSpeed;
+                        break;
+                    case 'ArrowLeft':
+                        imagePosition.x -= moveSpeed;
+                        break;
+                    case 'ArrowRight':
+                        imagePosition.x += moveSpeed;
+                        break;
+                }
+                updateCanvas();
+            });
+            
+            moveImageUp.addEventListener('click', () => { imagePosition.y -= moveSpeed; updateCanvas(); });
+            moveImageDown.addEventListener('click', () => { imagePosition.y += moveSpeed; updateCanvas(); });
+            moveImageLeft.addEventListener('click', () => { imagePosition.x -= moveSpeed; updateCanvas(); });
+            moveImageRight.addEventListener('click', () => { imagePosition.x += moveSpeed; updateCanvas(); });
+            
+            // Global image controls
+            globalMoveSpeedInput.addEventListener('input', function() {
+                globalMoveSpeedValue.textContent = this.value;
+                globalMoveSpeed = parseInt(this.value);
+            });
+            
+            globalRotationInput.addEventListener('input', function() {
+                globalRotationValue.textContent = this.value;
+                globalImageRotation = parseInt(this.value);
+                updateAllTshirtCards();
+            });
+            
+            globalSizeInput.addEventListener('input', function() {
+                globalSizeValue.textContent = this.value;
+                globalImageSize = parseInt(this.value);
+                updateAllTshirtCards();
+            });
+            
+            resetGlobalPosition.addEventListener('click', function() {
+                globalImagePosition = { x: 100, y: 125 };
+                globalImageRotation = 0;
+                globalRotationInput.value = 0;
+                globalRotationValue.textContent = '0';
+                updateAllTshirtCards();
+            });
+            
+            moveGlobalUp.addEventListener('click', () => { 
+                globalImagePosition.y -= globalMoveSpeed; 
+                updateAllTshirtCards(); 
+            });
+            moveGlobalDown.addEventListener('click', () => { 
+                globalImagePosition.y += globalMoveSpeed; 
+                updateAllTshirtCards(); 
+            });
+            moveGlobalLeft.addEventListener('click', () => { 
+                globalImagePosition.x -= globalMoveSpeed; 
+                updateAllTshirtCards(); 
+            });
+            moveGlobalRight.addEventListener('click', () => { 
+                globalImagePosition.x += globalMoveSpeed; 
+                updateAllTshirtCards(); 
+            });
+            
+            // Keyboard controls for global image movement
+            document.addEventListener('keydown', function(event) {
+                if (!globalDesignImage) return;
+                
+                switch(event.key) {
+                    case 'ArrowUp':
+                        if (event.shiftKey) {
+                            globalImagePosition.y -= globalMoveSpeed;
+                            updateAllTshirtCards();
+                        }
+                        break;
+                    case 'ArrowDown':
+                        if (event.shiftKey) {
+                            globalImagePosition.y += globalMoveSpeed;
+                            updateAllTshirtCards();
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        if (event.shiftKey) {
+                            globalImagePosition.x -= globalMoveSpeed;
+                            updateAllTshirtCards();
+                        }
+                        break;
+                    case 'ArrowRight':
+                        if (event.shiftKey) {
+                            globalImagePosition.x += globalMoveSpeed;
+                            updateAllTshirtCards();
+                        }
+                        break;
+                }
+            });
             
             // Buttons
             applyToAllBtn.addEventListener('click', applyDesignToAll);
@@ -434,16 +668,30 @@
                     
                     // Draw main design image if exists
                     if (mainDesignImage) {
-                        const imgWidth = 200;
+                        const imgWidth = imageSize;
                         const imgHeight = (mainDesignImage.height / mainDesignImage.width) * imgWidth;
-                        const xPos = (canvas.width - imgWidth) / 2;
-                        const yPos = (canvas.height - imgHeight) / 2;
-                        ctx.drawImage(mainDesignImage, xPos, yPos, imgWidth, imgHeight);
+                        const xPos = imagePosition.x - imgWidth/2;
+                        const yPos = imagePosition.y - imgHeight/2;
+                        
+                        // Save the current context state
+                        ctx.save();
+                        
+                        // Move to the center of the image
+                        ctx.translate(imagePosition.x, imagePosition.y);
+                        
+                        // Rotate around the center
+                        ctx.rotate(imageRotation * Math.PI / 180);
+                        
+                        // Draw the image centered
+                        ctx.drawImage(mainDesignImage, -imgWidth/2, -imgHeight/2, imgWidth, imgHeight);
+                        
+                        // Restore the context state
+                        ctx.restore();
                     }
                     
                     // Draw text if exists
                     if (customText.value) {
-                        ctx.font = `${fontSize.value}px Arial`;
+                        ctx.font = `${fontSize.value}px ${fontSelect.value}`;
                         ctx.fillStyle = textColor.value;
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
@@ -464,6 +712,9 @@
                         mainDesignImage = new Image();
                         mainDesignImage.src = e.target.result;
                         mainDesignImage.onload = function() {
+                            // Reset image position to center when new image is uploaded
+                            imagePosition = { x: canvas.width/2, y: canvas.height/2 };
+                            imageControls.style.display = 'block';
                             updateCanvas();
                         };
                     };
@@ -479,7 +730,12 @@
                         globalDesignImage = new Image();
                         globalDesignImage.src = e.target.result;
                         globalDesignImage.onload = function() {
-                            // Only updates the grid, not the main canvas
+                            // Reset global image position to center
+                            globalImagePosition = { x: 100, y: 125 };
+                            globalImageRotation = 0;
+                            globalRotationInput.value = 0;
+                            globalRotationValue.textContent = '0';
+                            globalImageControls.style.display = 'block';
                             updateAllTshirtCards();
                         };
                     };
@@ -561,11 +817,23 @@
                         
                         // Only use global design image for the grid
                         if (globalDesignImage) {
-                            const imgWidth = 150;
+                            const imgWidth = globalImageSize;
                             const imgHeight = (globalDesignImage.height / globalDesignImage.width) * imgWidth;
-                            const xPos = (canvas.width - imgWidth) / 2;
-                            const yPos = (canvas.height - imgHeight) / 2;
-                            ctx.drawImage(globalDesignImage, xPos, yPos, imgWidth, imgHeight);
+                            
+                            // Save the current context state
+                            ctx.save();
+                            
+                            // Move to the center of the image
+                            ctx.translate(globalImagePosition.x, globalImagePosition.y);
+                            
+                            // Rotate around the center
+                            ctx.rotate(globalImageRotation * Math.PI / 180);
+                            
+                            // Draw the image centered
+                            ctx.drawImage(globalDesignImage, -imgWidth/2, -imgHeight/2, imgWidth, imgHeight);
+                            
+                            // Restore the context state
+                            ctx.restore();
                         }
                     };
                 });
@@ -588,6 +856,7 @@
                         text: customText.value,
                         textColor: textColor.value,
                         fontSize: fontSize.value,
+                        fontFamily: fontSelect.value,
                         hasImage: mainDesignImage ? true : false,
                         timestamp: new Date().toISOString()
                     };
@@ -615,6 +884,28 @@
                 alert(`Draft "${draftName}" saved!`);
                 closeDraftModal();
             }
+
+            // New event listeners
+            const removeTextBtn = document.getElementById('remove-text');
+            const removeMainImageBtn = document.getElementById('remove-main-image');
+            const removeGlobalImageBtn = document.getElementById('remove-global-image');
+
+            removeTextBtn.addEventListener('click', function() {
+                customText.value = '';
+                updateCanvas();
+            });
+            
+            removeMainImageBtn.addEventListener('click', function() {
+                mainDesignImage = null;
+                imageControls.style.display = 'none';
+                updateCanvas();
+            });
+            
+            removeGlobalImageBtn.addEventListener('click', function() {
+                globalDesignImage = null;
+                globalImageControls.style.display = 'none';
+                updateAllTshirtCards();
+            });
         });
     </script>
 </body>
