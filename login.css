@@ -1,0 +1,192 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    line-height: 1.5;
+  }
+  
+  /* Container */
+  .container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .login-card {
+    width: 100%;
+    max-width: 28rem;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .shopping-bag {
+    color: lightcoral;
+  }
+  
+  .header h1 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+  }
+  
+  .header p {
+    color: #9ca3af;
+  }
+  
+  /* Form */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #d1d5db;
+    margin-bottom: 0.5rem;
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    font-size: 1rem;
+  }
+  
+  input[type="email"]::placeholder,
+  input[type="password"]::placeholder {
+    color: #6b7280;
+  }
+  
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+  }
+  
+  /* Password input */
+  .password-input {
+    position: relative;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+  
+  .toggle-password:hover {
+    color: #ffffff;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Form options */
+  .form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid #374151;
+    background-color: #111827;
+    accent-color: #dc2626;
+  }
+  
+  .remember-me label {
+    margin-bottom: 0;
+    color: #d1d5db;
+  }
+  
+  .forgot-password {
+    color: lightcoral;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .forgot-password:hover {
+    color: #f87171;
+  }
+  
+  /* Submit button */
+  .submit-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: lightcoral;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .submit-btn:hover {
+    background-color: #b91c1c;
+  }
+  
+  /* Sign up link */
+  .signup-link {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  
+  .signup-link p {
+    color: #9ca3af;
+  }
+  
+  .signup-link a {
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .signup-link a:hover {
+    color: #f87171;
+  }

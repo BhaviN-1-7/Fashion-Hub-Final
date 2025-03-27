@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Your Shirt</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .customization-panel {
+            margin-bottom: 20px;
+        }
+        .shirt-preview {
+            width: 200px;
+            height: 250px;
+            background-color: #ffffff;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: auto;
+        }
+        .preview-image {
+            max-width: 100px;
+            max-height: 100px;
+            position: absolute;
+        }
+        #previewText {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Customize Your Shirt</h1>
+        <div class="customization-panel">
+            <label for="shirtColor">Shirt Color:</label>
+            <input type="color" id="shirtColor" value="#ffffff">
+
+            <label for="text">Add Text:</label>
+            <input type="text" id="text" placeholder="Enter text">
+            
+            <label for="textColor">Text Color:</label>
+            <input type="color" id="textColor" value="#000000">
+            
+            <label for="imageUpload">Upload Image:</label>
+            <input type="file" id="imageUpload" accept="image/*">
+        </div>
+        <div class="preview-panel">
+            <div id="shirtPreview" class="shirt-preview">
+                <p id="previewText"></p>
+                <img id="previewImage" class="preview-image" src="" alt="">
+            </div>
+        </div>
+        <button id="addToCart">Add to Cart</button>
+    </div>
+    <script>
+        document.getElementById("shirtColor").addEventListener("input", function() {
+            document.getElementById("shirtPreview").style.backgroundColor = this.value;
+        });
+        
+        document.getElementById("text").addEventListener("input", function() {
+            document.getElementById("previewText").textContent = this.value;
+        });
+        
+        document.getElementById("textColor").addEventListener("input", function() {
+            document.getElementById("previewText").style.color = this.value;
+        });
+        
+        document.getElementById("imageUpload").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("previewImage").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!-- old -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Hub</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
+<title>Cart</title>
+</head>
+<body>
+    
+    <section id="header">
+        <a class="navbar-brand" href="#">
+          <img src="logo2.png" width="40px" height="40px" alt="Fashion Hub Logo">
+          <span>Fashion Hub</span>
+        </a>
+        <div>
+          <ul id="navbar">
+            <li class="nav-item"><a class="nav-link " href="indextest.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
+            <li class="nav-item">
+              <a class="nav-link cart-icon active" href="carttest.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                </svg>
+                <span class="cart-count">3</span> <!-- Example cart count -->
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="mobile">
+          <div id="bar">
+            <img src="bar2.png" height="30px" width="30px" alt="Menu Icon">
+          </div>
+        </div>
+      </section>
+
+
+
+<!-- Cart Section -->
+<section id="cart" class="py-5">
+    <h2 class="text-center">Your Cart</h2>
+    <div class="cart-container">
+        <table id="cart-table">
+            <thead>
+                <tr>
+                    <th>Remove</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>SubTotal</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+
+                <!-- Cart items will be dynamically added here -->
+                 
+            </tbody>
+        </table>
+        <button onclick="emptyCart()" class="btn btn-danger">Delete Cart</button>
+
+<hr>
+        <!-- Coupon Section -->
+        <div class="coupon-section">
+            <input type="text" id="coupon-code" placeholder="Enter coupon code">
+            <button id="apply-coupon">Apply Coupon</button>
+        </div>
+
+        <!-- Total Section -->
+        <div class="total-section">
+            <h3><span id="cart-total"><div id="total-amount">$0.00</div></span></h3>
+        </div>
+
+        <!-- Place Order Button -->
+        <div class="place-order">
+            <button id="place-order-btn">Place Order</button>
+        </div>
+    </div>
+</section>
+
+
+    <section id="newsletter" >
+    <div class="containern">
+        <div class="signup">
+            <h2 class="text-center">Sign Up for Newletters</h2>
+            <h4>Get E-mail updates about our latest shop and <span>Special Offers.</span></h4>
+        </div>
+        <div class="eb">
+        <div class="email">
+                    
+                    <input type="email" class="form-control" id="email" required placeholder="Your Email">
+        </div>
+            <div class="button-">
+                <button type="submit" class="subscribe-btn">Subscribe</button>
+            </div>
+        </div>
+    </div>
+    </section>
+
+
+    
+    <footer class=" text-white text-center py-3" id="footer">
+        <div class="footer-container">
+                <div class="footer-section">
+                <img src="logo2.png" height="150px" width="150px">                    
+                </div>
+        
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Phone: +1 (0) 000 0000 001</p>
+                    <p>Email: yourmail@example.com</p>
+                    <p>Address: 1234 Street Name City, AA 99999</p>
+                    <div class="social-icons">
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-google"></i>
+                        <i class="fab fa-behance"></i>
+                    </div>
+                </div>
+        
+                <div class="footer-section">
+                    <h3>RECENT NEWS</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Get In Touch</a></li>
+                    </ul>
+                </div>
+        
+                <div class="footer-section">
+                    <h3>LINKS</h3>
+                    <ul>
+                        <li><a href="#">Website Builder</a></li>
+                        <li><a href="#">Download for Mac</a></li>
+                        <li><a href="#">Download for Windows</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Commerce Theme. All rights reserved.</p>
+            </div>
+        </footer>
+        <script>
+            // Access the cartItems array from localStorage
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        
+            function displayCart() {
+                const cartContainer = document.getElementById('cart-items');
+                const totalAmountElement = document.getElementById('total-amount');
+        
+                // Clear previous content
+                cartContainer.innerHTML = '';
+                totalAmountElement.innerHTML = ''; // Clear total amount element
+        
+                let totalAmount = 0;
+        
+                if (cartItems.length === 0) {
+                    cartContainer.innerHTML = '<tr><td colspan="5" style="text-align:center;">No items in cart yet.</td></tr>';
+                } else {
+                    cartItems.forEach((item, index) => {
+                        const itemTotal = item.price * item.quantity;
+                        totalAmount += itemTotal;
+        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td><button onclick="removeItem(${index})">✖</button></td>
+                            <td>${item.name}</td>
+                            <td>$${item.price}</td>
+                            <td>
+                                <button onclick="updateQuantity(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="updateQuantity(${index}, 1)">+</button>
+                            </td>
+                            <td class="subtotal">$${itemTotal}</td>
+                        `;
+                        cartContainer.appendChild(row);
+                    });
+        
+                    // Update total amount
+                    totalAmountElement.innerHTML = `<p>Total: \$${totalAmount}</p>`;
+                }
+            }
+        
+            function updateQuantity(index, change) {
+                const item = cartItems[index];
+                item.quantity += change;
+        
+                if (item.quantity <= 0) {
+                    cartItems.splice(index, 1); // Remove the item if quantity is 0 or negative
+                }
+        
+                // Save updated cart to localStorage
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        
+                // Refresh the cart display
+                displayCart();
+            }
+        
+            function removeItem(index) {
+                cartItems.splice(index, 1);
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                displayCart();
+            }
+        
+            function emptyCart() {
+                cartItems = [];
+                localStorage.removeItem('cartItems');
+                displayCart();
+            }
+        
+            // Display cart items when the page loads
+            window.onload = function () {
+                displayCart();
+            };
+
+            const bar=document.getElementById('bar');
+const nav=document.getElementById('navbar');
+
+if(bar){
+    bar.addEventListener( 'click', () => {
+        nav.classList.toggle('active');
+    });
+}
+document.addEventListener('click', (event) => {
+    if (!nav.contains(event.target) && !bar.contains(event.target)) {
+        nav.classList.remove('active');
+    }
+});
+
+
+function updateCartCount() {
+    // Calculate total quantity
+    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+    
+    // Update the cart count element
+    const cartCountElement = document.querySelector('.cart-count'); // Adjust selector as needed
+    if (cartCountElement) {
+        cartCountElement.textContent = totalItems;
+    }
+}
+
+// Initialize cart count when page loads
+document.addEventListener('DOMContentLoaded', updateCartCount);
+
+        </script>      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+<script src='https://cdn.jotfor.ms/s/umd/latest/for-embedded-agent.js'></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    window.AgentInitializer.init({
+      agentRenderURL: "https://agent.jotform.com/0195d79757507c0486888487a3d8c92237b6",
+      rootId: "JotformAgent-0195d79757507c0486888487a3d8c92237b6",
+      formID: "0195d79757507c0486888487a3d8c92237b6",
+      queryParams: ["skipWelcome=1", "maximizable=1"],
+      domain: "https://www.jotform.com",
+      isDraggable: false,
+      background: "linear-gradient(180deg, #6C73A8 0%, #6C73A8 100%)",
+      buttonBackgroundColor: "#0066C3",
+      buttonIconColor: "#FFFFFF",
+      variant: false,
+      customizations: {
+        "greeting": "Yes",
+        "greetingMessage": "Hi! How can I assist you?",
+        "openByDefault": "No",
+        "pulse": "Yes",
+        "position": "right",
+        "autoOpenChatIn": "0"
+      },
+      isVoice: undefined
+    });
+  });
+</script>
+</html>
