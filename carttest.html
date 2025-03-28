@@ -155,7 +155,7 @@
         </a>
         <div>
           <ul id="navbar">
-            <li class="nav-item"><a class="nav-link " href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link " href="home.html">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
             <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
             <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
@@ -282,205 +282,168 @@
             </div>
         </footer>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Get both regular products and custom t-shirts from localStorage
-                const regularProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
-                const customTshirts = JSON.parse(localStorage.getItem('cartItems')) || [];
+            // Retrieve cart items from localStorage
+            let cartProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            // Function to display regular products
+            function displayRegularProducts() {
                 const regularCartItems = document.getElementById('regular-cart-items');
-                const customTshirtItems = document.getElementById('custom-tshirt-items');
-                const cartTotal = document.getElementById('cart-total');
-                const cartCount = document.querySelector('.cart-count');
-
-                // Display regular products
-                displayRegularProducts();
-                // Display custom t-shirts
-                displayCustomTshirts();
-                // Update total
-                updateCartTotal();
-                // Update cart count
-                updateCartCount();
-
-                function displayRegularProducts() {
-                    if (regularProducts.length === 0) {
-                        regularCartItems.innerHTML = `
-                            <tr>
-                                <td colspan="5" class="text-center">No regular products in cart</td>
-                            </tr>
-                        `;
-                        return;
-                    }
-
-                    regularCartItems.innerHTML = regularProducts.map((product, index) => `
-                        <tr>
-                            <td>${product.name}</td>
-                            <td>$${product.price.toFixed(2)}</td>
-                            <td>
-                                <div class="quantity-controls">
-                                    <button class="quantity-btn" onclick="updateRegularQuantity(${index}, -1)">-</button>
-                                    <input type="number" class="quantity-input" value="${product.quantity}" 
-                                        onchange="updateRegularQuantityInput(${index}, this.value)">
-                                    <button class="quantity-btn" onclick="updateRegularQuantity(${index}, 1)">+</button>
-                                </div>
-                            </td>
-                            <td>$${(product.price * product.quantity).toFixed(2)}</td>
-                            <td>
-                                <div class="remove-item" onclick="removeRegularItem(${index})">
-                                    <i class="fas fa-trash"></i>
-                                </div>
-                            </td>
-                        </tr>
-                    `).join('');
+                if (cartProducts.length === 0) {
+                    regularCartItems.innerHTML = '<tr><td colspan="5" class="text-center">No regular products in cart</td></tr>';
+                    return;
                 }
 
-                // Helper function to get product image based on name
-                function getProductImage(productName) {
-                    const imageMap = {
-                        'Vimanron colour clothing pocket outerwear': 'Media/f6.jpg',
-                        'Khankudi Men Printed Casual Multicolor shirt': 'Media/f1.jpg',
-                        'Floral fitoda Printed shirt': 'Media/f2.jpg',
-                        'Mens Hawaiian floral shirt': 'Media/f3.jpg',
-                        'Japanese Sakura Printed shirt': 'Media/f4.jpg',
-                        'Vintage dark floral shirt': 'Media/f5.jpg',
-                        'Zefotims Womens linen pants': 'Media/f7.jpg',
-                        'Embroided Avant Garde shirt ischiko japanese': 'Media/f8.jpg',
-                        'Mens Trendy Full Sleeve Sky-Blue Shirt': 'Media/f1.jpg',
-                        'R&B Men Printed Multicolor Shaded shirt': 'Media/f2.jpg',
-                        'Blackberrys Men Striped Casual Blue Shirt': 'Media/f3.jpg',
-                        'Indian Needle Corduroy Classic Cotton Casual shirt': 'Media/f4.jpg'
-                    };
-                    return imageMap[productName] || 'Media/default-product.jpg';
-                }
-
-                function displayCustomTshirts() {
-                    if (customTshirts.length === 0) {
-                        customTshirtItems.innerHTML = `
-                            <div class="empty-cart">
-                                <i class="fas fa-shopping-cart"></i>
-                                <h3>No custom t-shirts in cart</h3>
-                                <p>Add some custom t-shirts to your cart!</p>
-                                <a href="customize3.html" class="btn btn-primary">Customize T-Shirt</a>
+                regularCartItems.innerHTML = cartProducts.map((item, index) => `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>$${item.price}</td>
+                        <td>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateRegularQuantity(${index}, -1)">-</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateRegularQuantity(${index}, 0, this.value)">
+                                <button class="quantity-btn" onclick="updateRegularQuantity(${index}, 1)">+</button>
                             </div>
-                        `;
-                        return;
-                    }
+                        </td>
+                        <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                        <td>
+                            <span class="remove-item" onclick="removeRegularProduct(${index})">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </td>
+                    </tr>
+                `).join('');
+            }
 
-                customTshirtItems.innerHTML = customTshirts.map((item, index) => `
+            // Function to display custom t-shirts
+            function displayCustomTshirts() {
+                const customTshirtItems = document.getElementById('custom-tshirt-items');
+                if (cartItems.length === 0) {
+                    customTshirtItems.innerHTML = '<div class="text-center">No custom t-shirts in cart</div>';
+                    return;
+                }
+
+                customTshirtItems.innerHTML = cartItems.map((item, index) => `
                     <div class="custom-tshirt-item">
-                        <img src="${item.image}" alt="Custom T-Shirt" class="custom-tshirt-image">
+                        <img src="${item.image}" alt="Custom T-shirt" class="custom-tshirt-image">
                         <div class="custom-tshirt-details">
-                            <div class="custom-tshirt-name">Custom T-Shirt</div>
+                            <div class="custom-tshirt-name">${item.name}</div>
                             <div class="custom-tshirt-color">Color: ${item.color}</div>
-                            ${item.text ? `<div class="custom-tshirt-text">Text: "${item.text}"</div>` : ''}
-                            ${item.hasImage ? '<div class="custom-tshirt-design">Includes custom design</div>' : ''}
                             <div class="quantity-controls">
                                 <button class="quantity-btn" onclick="updateCustomQuantity(${index}, -1)">-</button>
-                                <input type="number" class="quantity-input" value="${item.quantity}" 
-                                    onchange="updateCustomQuantityInput(${index}, this.value)">
+                                <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateCustomQuantity(${index}, 0, this.value)">
                                 <button class="quantity-btn" onclick="updateCustomQuantity(${index}, 1)">+</button>
                             </div>
                             <div class="custom-tshirt-price">$${(item.price * item.quantity).toFixed(2)}</div>
-                        </div>
-                        <div class="remove-item" onclick="removeCustomItem(${index})">
-                            <i class="fas fa-trash"></i>
+                            <span class="remove-item" onclick="removeCustomTshirt(${index})">
+                                <i class="fas fa-trash"></i>
+                            </span>
                         </div>
                     </div>
                 `).join('');
             }
 
-            function updateCartTotal() {
-                const regularTotal = regularProducts.reduce((sum, product) => sum + (product.price * product.quantity), 0);
-                const customTotal = customTshirts.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const total = regularTotal + customTotal;
-                cartTotal.textContent = `$${total.toFixed(2)}`;
-            }
-
-            function updateCartCount() {
-                const totalProducts = regularProducts.reduce((total, item) => total + item.quantity, 0);
-                const totalCustomItems = customTshirts.reduce((total, item) => total + item.quantity, 0);
-                const totalItems = totalProducts + totalCustomItems;
-                cartCount.textContent = totalItems;
-            }
-
-            // Global functions for regular products
-            window.updateRegularQuantity = function(index, change) {
-                const newQuantity = regularProducts[index].quantity + change;
-                if (newQuantity > 0) {
-                    regularProducts[index].quantity = newQuantity;
-                    localStorage.setItem('cartProducts', JSON.stringify(regularProducts));
-                    displayRegularProducts();
-                    updateCartTotal();
-                    updateCartCount();
+            // Function to update regular product quantity
+            function updateRegularQuantity(index, change, newValue = null) {
+                if (newValue !== null) {
+                    cartProducts[index].quantity = parseInt(newValue);
+                } else {
+                    cartProducts[index].quantity += change;
                 }
-            };
-
-            window.updateRegularQuantityInput = function(index, value) {
-                const newQuantity = parseInt(value);
-                if (newQuantity > 0) {
-                    regularProducts[index].quantity = newQuantity;
-                    localStorage.setItem('cartProducts', JSON.stringify(regularProducts));
-                    displayRegularProducts();
-                    updateCartTotal();
-                    updateCartCount();
+                
+                if (cartProducts[index].quantity < 1) {
+                    cartProducts.splice(index, 1);
                 }
-            };
-
-            window.removeRegularItem = function(index) {
-                regularProducts.splice(index, 1);
-                localStorage.setItem('cartProducts', JSON.stringify(regularProducts));
+                
+                localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
                 displayRegularProducts();
                 updateCartTotal();
                 updateCartCount();
-            };
+            }
 
-            // Global functions for custom t-shirts
-            window.updateCustomQuantity = function(index, change) {
-                const newQuantity = customTshirts[index].quantity + change;
-                if (newQuantity > 0) {
-                    customTshirts[index].quantity = newQuantity;
-                    localStorage.setItem('cartItems', JSON.stringify(customTshirts));
-                    displayCustomTshirts();
-                    updateCartTotal();
-                    updateCartCount();
+            // Function to update custom t-shirt quantity
+            function updateCustomQuantity(index, change, newValue = null) {
+                if (newValue !== null) {
+                    cartItems[index].quantity = parseInt(newValue);
+                } else {
+                    cartItems[index].quantity += change;
                 }
-            };
-
-            window.updateCustomQuantityInput = function(index, value) {
-                const newQuantity = parseInt(value);
-                if (newQuantity > 0) {
-                    customTshirts[index].quantity = newQuantity;
-                    localStorage.setItem('cartItems', JSON.stringify(customTshirts));
-                    displayCustomTshirts();
-                    updateCartTotal();
-                    updateCartCount();
+                
+                if (cartItems[index].quantity < 1) {
+                    cartItems.splice(index, 1);
                 }
-            };
-
-            window.removeCustomItem = function(index) {
-                customTshirts.splice(index, 1);
-                localStorage.setItem('cartItems', JSON.stringify(customTshirts));
+                
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
                 displayCustomTshirts();
                 updateCartTotal();
                 updateCartCount();
-            };
-        });
-
-        // Mobile menu functionality
-        const bar = document.getElementById('bar');
-        const nav = document.getElementById('navbar');
-
-        if (bar) {
-            bar.addEventListener('click', () => {
-                nav.classList.toggle('active');
-            });
-        }
-        document.addEventListener('click', (event) => {
-            if (!nav.contains(event.target) && !bar.contains(event.target)) {
-                nav.classList.remove('active');
             }
-        });
-    </script>      
+
+            // Function to remove regular product
+            function removeRegularProduct(index) {
+                cartProducts.splice(index, 1);
+                localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+                displayRegularProducts();
+                updateCartTotal();
+                updateCartCount();
+            }
+
+            // Function to remove custom t-shirt
+            function removeCustomTshirt(index) {
+                cartItems.splice(index, 1);
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                displayCustomTshirts();
+                updateCartTotal();
+                updateCartCount();
+            }
+
+            // Function to update cart total
+            function updateCartTotal() {
+                const regularTotal = cartProducts.reduce((total, item) => total + (item.price * item.quantity), 0);
+                const customTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+                const total = regularTotal + customTotal;
+                document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`;
+            }
+
+            // Function to update cart count
+            function updateCartCount() {
+                const totalProducts = cartProducts.reduce((total, item) => total + item.quantity, 0);
+                const totalCustomItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+                const totalItems = totalProducts + totalCustomItems;
+                
+                const cartCountElements = document.querySelectorAll('.cart-count');
+                cartCountElements.forEach(element => {
+                    element.textContent = totalItems;
+                });
+            }
+
+            // Initialize cart display
+            document.addEventListener('DOMContentLoaded', () => {
+                displayRegularProducts();
+                displayCustomTshirts();
+                updateCartTotal();
+                updateCartCount();
+            });
+
+            // Mobile menu functionality
+            const bar = document.getElementById('bar');
+            const nav = document.getElementById('navbar');
+
+            if(bar) {
+                bar.addEventListener('click', () => {
+                    nav.classList.toggle('active');
+                });
+            }
+
+            document.addEventListener('click', (event) => {
+                if (!nav.contains(event.target) && !bar.contains(event.target)) {
+                    nav.classList.remove('active');
+                }
+            });
+        </script>      
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
+<script src="cart.js"></script>
 </body>
 <script src='https://cdn.jotfor.ms/s/umd/latest/for-embedded-agent.js'></script>
 <script>

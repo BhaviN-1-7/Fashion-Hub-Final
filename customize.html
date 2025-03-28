@@ -167,7 +167,7 @@
         </a>
         <div>
             <ul id="navbar">
-                <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="home.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
@@ -906,6 +906,61 @@
                 globalImageControls.style.display = 'none';
                 updateAllTshirtCards();
             });
+
+            // Add this after the existing script code
+            document.getElementById('add-to-cart').addEventListener('click', function() {
+                // Get the current t-shirt color
+                const selectedTshirt = document.querySelector('.tshirt-option.selected');
+                const color = selectedTshirt.dataset.color;
+                
+                // Get the canvas data
+                const canvas = document.getElementById('product-canvas');
+                const imageData = canvas.toDataURL('image/png');
+                
+                // Create the custom t-shirt item
+                const customTshirt = {
+                    name: 'Custom T-Shirt',
+                    color: color,
+                    image: imageData,
+                    price: 29.99, // Base price for custom t-shirts
+                    quantity: 1
+                };
+                
+                // Get existing cart items
+                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                
+                // Add the new custom t-shirt to the cart
+                cartItems.push(customTshirt);
+                
+                // Save back to localStorage
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                
+                // Update cart count
+                updateCartCount();
+                
+                // Show success message
+                alert('Custom t-shirt added to cart!');
+            });
+
+            function updateCartCount() {
+                // Get both types of cart items
+                const cartProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
+                const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                
+                // Calculate total items
+                const totalProducts = cartProducts.reduce((total, item) => total + item.quantity, 0);
+                const totalCustomItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+                const totalItems = totalProducts + totalCustomItems;
+                
+                // Update all cart count elements
+                const cartCountElements = document.querySelectorAll('.cart-count');
+                cartCountElements.forEach(element => {
+                    element.textContent = totalItems;
+                });
+            }
+
+            // Initialize cart count when page loads
+            document.addEventListener('DOMContentLoaded', updateCartCount);
         });
     </script>
     <script src="script.js"></script>

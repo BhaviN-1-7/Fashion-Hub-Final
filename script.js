@@ -1,6 +1,16 @@
 // Retrieve cart items from localStorage or initialize an empty array
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
+document.getElementById("logoutButton").addEventListener("click", () => {
+    firebase.auth().signOut().then(() => {
+        console.log("User signed out.");
+        window.location.href = "index.html"; // Redirect to login page
+    }).catch((error) => {
+        console.error("Logout Error:", error);
+    });
+});
+
+
 function addToCart(itemName, price) {
     // Check if the item already exists in the cart
     let existingItem = cartItems.find(item => item.name === itemName);

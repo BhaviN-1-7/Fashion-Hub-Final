@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = userCredential.user;
             console.log('Logged in:', user.email);
             alert('Login successful!');
-            window.location.href = 'indextest.html';
+            window.location.href = 'home.html';
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         console.log('User is logged in:', user.email);
-        window.location.href = 'indextest.html'; // Redirect if already logged in
+        window.location.href = 'home.html'; // Redirect if already logged in
       } else {
         console.log('No user is logged in');
       }
